@@ -8,7 +8,8 @@ export async function getStaticPaths() {
   return {
     paths: comic.map((comic) => ({
       params: {id: comic.id.toString()}
-    }))
+    })),
+    fallback: false
   }
 }
 

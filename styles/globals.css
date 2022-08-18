@@ -22,5 +22,80 @@ a {
   body {
     color: white;
     background: black;
+    padding: 100px;
   }
+}
+
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.container h2 {
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: 30px;
+  grid-column-gap: 20px;
+}
+
+.card {
+  text-align: center;
+}
+
+.card img {
+  max-height: 200px;
+}
+
+.card a {
+  color: #e8e8e8;
+}
+
+.card:hover a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 50px;
+
+  margin-top: 30px;
+}
+
+.detail img {
+  width: 400px;
+}
+
+.detail .information h2 {
+  line-height: 40px;
+}
+
+.detail .information p {
+  line-height: 28px;
+}
+
+.detail .information div h2 {
+  margin: 50px 0 10px 0;
+}
+
+.detail .information div span {
+  display: block;
+}
+
+.detail .information div span p {
+  display: inline-block;
+  margin: 3px 0;
+}
+
+.detail .information div span p:first-child {
+  font-weight: bold;
+}
+
+.detail .information div span p:nth-child(n + 2)::before {
+  content: "\00a0";
 }

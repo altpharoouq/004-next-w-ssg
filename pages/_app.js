@@ -35,7 +35,7 @@ i18n.use(initReactI18next).init({
 });
 
 function MyApp({ Component, pageProps }) {
-  console.log(pageProps, language);
+  console.log(pageProps);
   if (!pageProps.isnonlocalePage) {
     const language = pageProps.currentLanguage.symbol?.toLowerCase();
     i18n.changeLanguage(language);

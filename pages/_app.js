@@ -35,14 +35,10 @@ i18n.use(initReactI18next).init({
 });
 
 function MyApp({ Component, pageProps }) {
-  console.log(pageProps);
+  console.log(pageProps, language);
   if (!pageProps.isnonlocalePage) {
     const language = pageProps.currentLanguage.symbol?.toLowerCase();
     i18n.changeLanguage(language);
-
-    console.log("Here", language);
-  } else {
-    console.log("Failed");
   }
 
   return <Component {...pageProps} />;
@@ -75,6 +71,7 @@ MyApp.getInitialProps = async (context) => {
 
   return {
     pageProps: {
+      language,
       isnonlocalePage: false,
       locale: locale.currentLocale(router.locale),
       currentLanguage: languageConfig,

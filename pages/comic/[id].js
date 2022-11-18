@@ -49,9 +49,7 @@ export default function Details({ comic }) {
       </Head>
 
       <div className="container">
-        <Link href={{ pathname: "/" }}>
-          <a>Back to Home</a>
-        </Link>
+        <a href="/">Back to Home</a>
 
         <div className="detail">
           <img src={comic.imageSrc} alt={comic.title} />

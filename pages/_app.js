@@ -64,6 +64,9 @@ MyApp.getInitialProps = async (context) => {
 
   const languageConfig = locale.languageConfig(router.locale, language);
 
+  const res = context.ctx.res;
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
   return {
     pageProps: {
       isnonlocalePage: false,

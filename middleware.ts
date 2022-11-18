@@ -10,17 +10,7 @@ const updateLanguageRequestParameter = (
   language: any,
   req: NextRequest
 ) => {
-  const referer = req.headers.get("referer");
-  const url = new URL(referer);
-  const params = new URLSearchParams(url.search);
-
-  const languageParam = params.get("language");
-
   const languageConfig = locale.languageConfig(symbol, language);
-
-  if (languageParam) {
-    req.nextUrl.searchParams.set("language", languageParam);
-  }
 
   if (!languageConfig.isValid || languageConfig.isDefault) {
     req.nextUrl.searchParams.delete("language");
@@ -30,6 +20,7 @@ const updateLanguageRequestParameter = (
 };
 
 export async function middleware(req: NextRequest) {
+  const referer = req.headers.get("referer");
   const validatedCountryFromCookie = locale.isValidSymbol(
     req.cookies.get("locale")
   );
@@ -99,30 +90,30 @@ export async function middleware(req: NextRequest) {
 
     return response;
   } else {
-    // const referer = req.headers.get("referer");
-    // const url = new URL(referer);
-    // const params = new URLSearchParams(url.search);
+    const url = referer ? new URL(referer) : null;
+    const params = url ? new URLSearchParams(url.search) : null;
 
-    // const languageParam = params.get("language");
+    const languageParam = params?.get("language");
 
     const languageConfig = locale.languageConfig(
       validatedCountryFromUrl.urlCompatible,
       language
     );
 
-    // if (languageParam && !req.nextUrl.searchParams.get("language")) {
-    //   req.nextUrl.searchParams.set("language", languageParam);
+    if (languageParam && !req.nextUrl.searchParams.get("language")) {
+      req.nextUrl.searchParams.set("language", languageParam);
 
-    //   const response = NextResponse.redirect(req.url);
+      const response = NextResponse.redirect(req.url);
 
-    //   return response;
-    // }
+      return response;
+    }
 
     if (
       (!languageConfig.isValid || languageConfig.isDefault) &&
       req.nextUrl.searchParams.get("language")
     ) {
       req.nextUrl.searchParams.delete("language");
+
       const response = NextResponse.redirect(req.url);
 
       return response;

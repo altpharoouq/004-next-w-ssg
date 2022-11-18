@@ -57,10 +57,11 @@ MyApp.getInitialProps = async (context) => {
 
   const router = context.router;
   const req = context.ctx.req;
-  const NextRequestMetaSymbol = Reflect.ownKeys(req).find(
-    (key) => key.toString() === "Symbol(NextRequestMeta)"
-  );
-  const language = req[NextRequestMetaSymbol].__NEXT_INIT_QUERY.language;
+
+  const url = new URL(`https://${req.headers.host}${pathname}`);
+  const params = url ? new URLSearchParams(url.search) : null;
+
+  const language = params?.get("language");
 
   const languageConfig = locale.languageConfig(router.locale, language);
 

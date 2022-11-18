@@ -18,17 +18,17 @@ const locale = {
   },
   languageConfig: function (symbol, language) {
     const languages = this.currentLocale(symbol)?.languages;
-    const selectedLanguage = languages.find(
+    const selectedLanguage = languages?.find(
       (x) => x.symbol === language?.toUpperCase()
     );
-    const defaultLanguage = languages.find((x) => x.default === true);
+    const defaultLanguage = languages?.find((x) => x.default === true);
 
     return {
       isDefault: !language ? true : selectedLanguage?.default || false,
       isValid: !language ? true : !!selectedLanguage || false,
       symbol: !selectedLanguage
-        ? defaultLanguage.symbol
-        : selectedLanguage.symbol,
+        ? defaultLanguage?.symbol
+        : selectedLanguage?.symbol,
     };
   },
   countries: function (partialResponse) {

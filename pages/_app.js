@@ -59,7 +59,7 @@ MyApp.getInitialProps = async (context) => {
   const router = context.router;
   const req = context.ctx.req;
 
-  const url = new URL(`https://${req.headers.host}${pathname}`);
+  const url = new URL(`http://${req.headers.host}${pathname}`);
   const params = url ? new URLSearchParams(url.search) : null;
 
   const language = params?.get("language");
@@ -68,10 +68,7 @@ MyApp.getInitialProps = async (context) => {
 
   return {
     pageProps: {
-      pathname,
-      req: req.headers.host,
-      params,
-      language,
+      req,
       isnonlocalePage: false,
       locale: locale.currentLocale(router.locale),
       currentLanguage: languageConfig,

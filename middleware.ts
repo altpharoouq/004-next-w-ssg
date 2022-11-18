@@ -16,8 +16,6 @@ const updateLanguageRequestParameter = (
     req.nextUrl.searchParams.delete("language");
   }
 
-  console.log("Here", languageConfig);
-
   return;
 };
 

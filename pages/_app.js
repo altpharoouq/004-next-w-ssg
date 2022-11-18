@@ -38,6 +38,8 @@ function MyApp({ Component, pageProps }) {
   if (!pageProps.isnonlocalePage) {
     const language = pageProps.currentLanguage.symbol?.toLowerCase();
     i18n.changeLanguage(language);
+
+    console.log("Here", language);
   }
 
   return <Component {...pageProps} />;

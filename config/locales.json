@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Nigeria",
+    "symbol": "NG",
+    "demonym": "Nigerians",
+    "languages": [
+      {
+        "default": true,
+        "name": "English",
+        "symbol": "EN",
+        "direction": "LTR"
+      },
+      {
+        "name": "French",
+        "symbol": "FR",
+        "direction": "LTR"
+      }
+    ],
+    "telephone": {
+      "landline": {
+        "format": "XXXXXX",
+        "calling_code": "001",
+        "nsn_length": 6
+      },
+      "mobile": {
+        "format": "XXXXXXXXXX",
+        "calling_code": "234",
+        "nsn_length": 10
+      }
+    },
+    "currency": {
+      "name": "Naira",
+      "symbol": "₦",
+      "code": "NGN"
+    }
+  },
+  {
+    "name": "Ghana",
+    "symbol": "GH",
+    "demonym": "Ghanaians",
+    "languages": [
+      {
+        "name": "English",
+        "symbol": "EN",
+        "direction": "LTR"
+      },
+      {
+        "default": true,
+        "name": "French",
+        "symbol": "FR",
+        "direction": "LTR"
+      }
+    ],
+    "telephone": {
+      "mobile": {
+        "format": "XXXXXXXXXX",
+        "calling_code": "233",
+        "nsn_length": 9
+      }
+    },
+    "currency": {
+      "name": "Ghanaian cedi",
+      "symbol": "GH¢",
+      "code": "GHS"
+    }
+  }
+]

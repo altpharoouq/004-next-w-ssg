@@ -1,6 +1,5 @@
-import Head from "next/head";
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import Seo from "./components/SEO";
 
 export async function getStaticProps() {
   const resp = await fetch("https://fake-comic-api.herokuapp.com/comic");
@@ -12,15 +11,18 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ comic }) {
+export default function Home({ comic, url }) {
   const { t } = useTranslation();
 
   return (
     <div>
-      <Head>
-        <title>CSR- Comic books</title>
-        <meta name="description" content="CSR - comic book study" />
-      </Head>
+      <Seo
+        title="CSR - Comic books"
+        description="CSR - comic book study"
+        image="https:/bsfd"
+        keywords="test, rewds"
+        url={url}
+      />
 
       <div className="container">
         <h2>Comic List</h2>

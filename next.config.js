@@ -25,7 +25,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; img-src 'self' https://i.annihil.us; script-src 'self' 'unsafe-eval'; style-src 'unsafe-inline'; font-src 'self';",
+              "default-src 'self'; img-src 'self' https://i.annihil.us; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self';",
           },
           {
             key: "X-Content-Type-Options",
@@ -34,6 +34,10 @@ const nextConfig = {
           {
             key: "Referrer-Policy",
             value: "origin-when-cross-origin",
+          },
+          {
+            key: "Cache-Control",
+            value: "s-maxage=31536000, stale-while-revalidate",
           },
         ],
       },

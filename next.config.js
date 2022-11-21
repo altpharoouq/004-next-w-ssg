@@ -12,10 +12,11 @@ const nextConfig = {
     localeDetection: false,
   },
   trailingSlash: false,
+  poweredByHeader: false,
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: "/:path*",
         headers: [
           {
             key: "X-Frame-Options",
@@ -23,7 +24,8 @@ const nextConfig = {
           },
           {
             key: "Content-Security-Policy",
-            value: "default-src 'self' 'https://autochek.africa'",
+            value:
+              "default-src 'self'; img-src 'self' https://i.annihil.us; script-src 'self' 'unsafe-eval'; style-src 'unsafe-inline'; font-src 'self';",
           },
           {
             key: "X-Content-Type-Options",

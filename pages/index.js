@@ -1,11 +1,22 @@
 import { useTranslation } from "react-i18next";
 import Seo from "./components/SEO";
+import localeFn from "../utils/locale";
 
-export async function getStaticProps() {
+export async function getServerSideProps({ req, locale }) {
+  const NextRequestMetaSymbol = Reflect.ownKeys(req).find(
+    (key) => key.toString() === "Symbol(NextRequestMeta)"
+  );
+  const url = req[NextRequestMetaSymbol].__NEXT_INIT_URL;
+  const language =
+    req[NextRequestMetaSymbol].__NEXT_INIT_QUERY?.language || null;
+  const languageConfig = localeFn.languageConfig(locale, language);
+
   const resp = await fetch("https://fake-comic-api.herokuapp.com/comic");
 
   return {
     props: {
+      url,
+      language: languageConfig.symbol.toLowerCase(),
       comic: await resp.json(),
     },
   };

@@ -36,7 +36,7 @@ i18n.use(initReactI18next).init({
 
 function MyApp({ Component, pageProps }) {
   if (!pageProps.isnonlocalePage) {
-    const language = pageProps.currentLanguage.symbol?.toLowerCase();
+    const language = pageProps.language;
     i18n.changeLanguage(language);
   }
 
@@ -45,11 +45,6 @@ function MyApp({ Component, pageProps }) {
 
 MyApp.getInitialProps = async ({ router }) => {
   const { asPath } = router;
-  const url = new URL(
-    `${process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000/"}${
-      router.locale
-    }${asPath}`
-  );
   const plainPath = asPath.split("?");
 
   if (nonlocalePages.includes(plainPath[0])) {
@@ -60,17 +55,10 @@ MyApp.getInitialProps = async ({ router }) => {
     };
   }
 
-  const parameters = new URLSearchParams(url.search);
-  const language = parameters?.get("language");
-
-  const languageConfig = locale.languageConfig(router.locale, language);
-
   return {
     pageProps: {
       isnonlocalePage: false,
       locale: locale.currentLocale(router.locale),
-      currentLanguage: languageConfig,
-      url: url.href,
     },
   };
 };

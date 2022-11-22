@@ -25,7 +25,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; img-src 'self' https://i.annihil.us; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self';",
+              "default-src 'self'; img-src 'self' https://i.annihil.us; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self' https://api.locize.app;",
           },
           {
             key: "X-Content-Type-Options",
@@ -42,6 +42,11 @@ const nextConfig = {
         ],
       },
     ];
+  },
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false };
+
+    return config;
   },
 };
 

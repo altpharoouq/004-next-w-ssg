@@ -14,7 +14,7 @@ export async function getServerSideProps({ params }) {
 }
 
 export default function Details({ comic, url }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["default"]);
 
   return (
     <div>
@@ -33,12 +33,11 @@ export default function Details({ comic, url }) {
           <img src={comic.imageSrc} alt={comic.title} />
 
           <div className="information">
-            <h2>{t("good")}</h2>
-            <h2>{t("better")}</h2>
-            <h2>{t("best")}</h2>
-            <h2>{t("bad")}</h2>
-            <h2>{t("worse")}</h2>
-            <h2>{t("worst")}</h2>
+            <h2>{t("def-cat")}</h2>
+            <h2>{t("def-cow")}</h2>
+            <h2>{t("def-dog")}</h2>
+            <h2>{t("def-rat")}</h2>
+            <h2>{t("def-pillow")}</h2>
 
             <h2>{comic.title}</h2>
 

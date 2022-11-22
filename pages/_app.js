@@ -35,7 +35,8 @@ i18n.use(initReactI18next).init({
   },
 });
 
-function MyApp({ Component, pageProps, router }) {
+function MyApp({ Component, pageProps }) {
+  console.log(pageProps);
   if (!pageProps.isnonlocalePage) {
     const language = pageProps.currentLanguage.symbol?.toLowerCase();
     i18n.changeLanguage(language);
@@ -48,7 +49,7 @@ MyApp.getInitialProps = async (context) => {
   const { router, ctx } = context 
   const { asPath } = router
   const { req } = ctx
-  const { origin } = absoluteUrl(req)
+  const { protocol, host, origin } = absoluteUrl(req)
   const url = new URL(`${origin}${asPath}`)
   const plainPath = asPath.split("?");
 
@@ -59,6 +60,8 @@ MyApp.getInitialProps = async (context) => {
       },
     };
   }
+
+  console.log(protocol, host);
 
   const parameters = new URLSearchParams(url.search);
   const language = parameters?.get("language");
@@ -71,6 +74,8 @@ MyApp.getInitialProps = async (context) => {
       locale: locale.currentLocale(router.locale),
       currentLanguage: languageConfig,
       url: url.href,
+      protocol,
+      host
     },
   };
 };

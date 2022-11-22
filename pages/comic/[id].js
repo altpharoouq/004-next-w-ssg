@@ -1,5 +1,5 @@
-import Head from "next/head";
 import { useTranslation } from "react-i18next";
+import Seo from "../components/SEO";
 
 export async function getServerSideProps({ params }) {
   const resp = await fetch(
@@ -13,18 +13,18 @@ export async function getServerSideProps({ params }) {
   };
 }
 
-export default function Details({ comic }) {
+export default function Details({ comic, url }) {
   const { t } = useTranslation();
 
   return (
     <div>
-      <Head>
-        <title>Single comic | CSR- Comic books</title>
-        <meta
-          name="description"
-          content={`Single comic | CSR - comic book study`}
-        />
-      </Head>
+      <Seo
+        title={comic.title}
+        description={comic.team.writer}
+        image="https:/bsfd"
+        keywords="test, rewds"
+        url={url}
+      />
 
       <div className="container">
         <a href="/">Back to Home</a>

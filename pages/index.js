@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import Seo from "./components/SEO";
-import localeFn from "../utils/locale";
 
 export async function getServerSideProps({ req, locale }) {
   const resp = await fetch("https://fake-comic-api.herokuapp.com/comic");

@@ -9,7 +9,7 @@ interface ISeo {
   description: string;
   image?: string;
   keywords?: string;
-  url?: string;
+  url: string;
 }
 
 export default function Seo({

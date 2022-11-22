@@ -40,8 +40,6 @@ function MyApp({ Component, pageProps }) {
     i18n.changeLanguage(language);
   }
 
-  console.log(pageProps);
-
   return <Component {...pageProps} />;
 }
 
@@ -61,14 +59,18 @@ MyApp.getInitialProps = async ({ router, ctx }) => {
   const NextRequestMetaSymbol = Reflect.ownKeys(req).find(
     (key) => key.toString() === "Symbol(NextRequestMeta)"
   );
-  const url = req[NextRequestMetaSymbol].__NEXT_INIT_URL;
+
+  // Delete unneeded parameters
+  const url = new URL(req[NextRequestMetaSymbol].__NEXT_INIT_URL);
+  url.searchParams.delete("id");
+
   const language =
     req[NextRequestMetaSymbol].__NEXT_INIT_QUERY?.language || null;
   const languageConfig = locale.languageConfig(router.locale, language);
 
   return {
     pageProps: {
-      url,
+      url: url.href,
       isnonlocalePage: false,
       locale: locale.currentLocale(router.locale),
       language: languageConfig.symbol.toLowerCase(),

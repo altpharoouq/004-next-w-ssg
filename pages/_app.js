@@ -2,7 +2,6 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import locale from "../utils/locale";
 import nonlocalePages from "../config/nonlocalePages.json";
-import absoluteUrl from 'next-absolute-url'
 
 import "../styles/globals.css";
 
@@ -36,7 +35,6 @@ i18n.use(initReactI18next).init({
 });
 
 function MyApp({ Component, pageProps }) {
-  console.log(pageProps);
   if (!pageProps.isnonlocalePage) {
     const language = pageProps.currentLanguage.symbol?.toLowerCase();
     i18n.changeLanguage(language);
@@ -45,12 +43,13 @@ function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
 
-MyApp.getInitialProps = async (context) => {
-  const { router, ctx } = context 
-  const { asPath } = router
-  const { req } = ctx
-  const { protocol, host, origin } = absoluteUrl(req)
-  const url = new URL(`${origin}${asPath}`)
+MyApp.getInitialProps = async ({ router }) => {
+  const { asPath } = router;
+  const url = new URL(
+    `${process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000/"}${
+      router.locale
+    }${asPath}`
+  );
   const plainPath = asPath.split("?");
 
   if (nonlocalePages.includes(plainPath[0])) {
@@ -60,8 +59,6 @@ MyApp.getInitialProps = async (context) => {
       },
     };
   }
-
-  console.log(protocol, host);
 
   const parameters = new URLSearchParams(url.search);
   const language = parameters?.get("language");
@@ -74,8 +71,6 @@ MyApp.getInitialProps = async (context) => {
       locale: locale.currentLocale(router.locale),
       currentLanguage: languageConfig,
       url: url.href,
-      protocol,
-      host
     },
   };
 };

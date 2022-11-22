@@ -2,6 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import locale from "../utils/locale";
 import nonlocalePages from "../config/nonlocalePages.json";
+import absoluteUrl from 'next-absolute-url'
 
 import "../styles/globals.css";
 
@@ -44,10 +45,12 @@ function MyApp({ Component, pageProps, router }) {
 }
 
 MyApp.getInitialProps = async (context) => {
-  const env = process.env.NODE_ENV;
-
-  const pathname = context.ctx.asPath;
-  const plainPath = pathname.split("?");
+  const { router, ctx } = context 
+  const { asPath } = router
+  const { req } = ctx
+  const { origin } = absoluteUrl(req)
+  const url = new URL(`${origin}${asPath}`)
+  const plainPath = asPath.split("?");
 
   if (nonlocalePages.includes(plainPath[0])) {
     return {
@@ -57,18 +60,8 @@ MyApp.getInitialProps = async (context) => {
     };
   }
 
-  const router = context.router;
-  const req = context.ctx.req;
-
-  const url = new URL(
-    `${env === "development" ? "http://" : "https://"}${req.headers.host}/${
-      router.locale
-    }${pathname}`
-  );
-
-  const params = url ? new URLSearchParams(url.search) : null;
-
-  const language = params?.get("language");
+  const parameters = new URLSearchParams(url.search);
+  const language = parameters?.get("language");
 
   const languageConfig = locale.languageConfig(router.locale, language);
 

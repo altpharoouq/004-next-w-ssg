@@ -1,29 +1,7 @@
 import Head from "next/head";
-import Link from "next/link";
-import locale from "../../utils/locale";
 import { useTranslation } from "react-i18next";
 
-export async function getStaticPaths() {
-  const resp = await fetch("https://fake-comic-api.herokuapp.com/comic");
-  const comic = await resp.json();
-
-  let paths = [];
-
-  comic.map((comic) => {
-    locale.countries().forEach((country) => {
-      paths.push({ params: { id: comic.id.toString() }, locale: country });
-    });
-  });
-
-  const tbr = {
-    paths,
-    fallback: false,
-  };
-
-  return tbr;
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const resp = await fetch(
     `https://fake-comic-api.herokuapp.com/comic/${params.id}`
   );

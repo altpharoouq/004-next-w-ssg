@@ -40,12 +40,15 @@ function MyApp({ Component, pageProps }) {
     i18n.changeLanguage(language);
   }
 
+  console.log(pageProps);
+
   return <Component {...pageProps} />;
 }
 
-MyApp.getInitialProps = async ({ router }) => {
+MyApp.getInitialProps = async ({ router, ctx }) => {
   const { asPath } = router;
   const plainPath = asPath.split("?");
+  const { req } = ctx;
 
   if (nonlocalePages.includes(plainPath[0])) {
     return {
@@ -55,10 +58,20 @@ MyApp.getInitialProps = async ({ router }) => {
     };
   }
 
+  const NextRequestMetaSymbol = Reflect.ownKeys(req).find(
+    (key) => key.toString() === "Symbol(NextRequestMeta)"
+  );
+  const url = req[NextRequestMetaSymbol].__NEXT_INIT_URL;
+  const language =
+    req[NextRequestMetaSymbol].__NEXT_INIT_QUERY?.language || null;
+  const languageConfig = locale.languageConfig(router.locale, language);
+
   return {
     pageProps: {
+      url,
       isnonlocalePage: false,
       locale: locale.currentLocale(router.locale),
+      language: languageConfig.symbol.toLowerCase(),
     },
   };
 };
